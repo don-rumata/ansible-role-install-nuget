@@ -1,0 +1,36 @@
+---
+galaxy_info:
+  author: don Rumata
+  description: Install NuGet for Linux and Windows
+  company: localhost
+
+  license: Apache License, Version 2.0
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+    - name: Debian
+      version:
+        - buster
+        - bullseye
+        - bookworm
+    - name: Windows
+      version:
+        - 2008x64
+        - 2019
+
+  galaxy_tags:
+    - mono
+    - linux
+    - ubuntu
+    - debian
+    - nuget
+    - windows
+    - windows7
+    - windows10
+
+  dependencies: []

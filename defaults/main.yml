@@ -1,0 +1,6 @@
+---
+nuget_download_url: https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+
+nuget_win_path_to_install: '{{ ansible_env.ProgramFiles }}\nuget'
+
+nuget_linux_path_to_install: /usr/local/bin

@@ -1,0 +1,71 @@
+---
+- name: Install NuGet 4 Windows
+  when: ansible_os_family == 'Windows'
+  become: yes
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  block:
+    - win_file:
+        path: "{{ nuget_win_path_to_install }}"
+        state: directory
+    - win_path:
+        elements:
+          - "{{ nuget_win_path_to_install }}"
+        state: present
+    - win_get_url:
+        url: "{{ nuget_download_url }}"
+        dest: "{{ nuget_win_path_to_install }}\\nuget.exe"
+        # remote_src: yes
+    # # https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh831755(v=ws.11)#create-firewall-rules
+    # - win_shell: netsh advfirewall firewall add rule name="Allow NuGet" dir=in action=allow program="{{ ansible_env.ProgramFiles }}\nuget\nuget.exe"
+    #   args:
+    #     executable: cmd
+    # - community.windows.win_firewall_rule:
+    - win_firewall_rule:
+        name: Allow NuGet
+        direction: in
+        action: allow
+        program: "{{ nuget_win_path_to_install }}\\nuget.exe"
+        group: application
+        state: present
+        enabled: yes
+
+
+
+# Ещё https://docs.microsoft.com/en-us/nuget/install-nuget-client-tools#cli-tools
+# https://github.com/NuGet/Home/issues/11574#issuecomment-1937556913
+- name: Install NuGet 4 Ubuntu
+  when:
+    - ansible_os_family == 'Debian'
+    - ansible_pkg_mgr == 'apt'
+  become: yes
+  block:
+    # Delete old version
+    - package:
+        name:
+          - nuget
+        state: absent
+    - package:
+        name:
+          - libmono-system-componentmodel-composition4.0-cil
+          - libmono-microsoft-build-utilities-v4.0-4.0-cil
+          - libmono-windowsbase4.0-cil
+          - libmono-system-net4.0-cil
+          - libmono-system-net-http-formatting4.0-cil
+          - libmono-system-net-http-webrequest4.0-cil
+          - libmono-system-net-http4.0-cil
+          - libmono-system-io-compression4.0-cil
+          - libmono-system-data-services-client4.0-cil
+          - libmono-system-servicemodel4.0a-cil
+          - mono-mcs
+        state: latest
+    - get_url:
+        url: "{{ nuget_download_url }}"
+        dest: "{{ nuget_linux_path_to_install }}/nuget.exe"
+        mode: '755'
+    - lineinfile:
+        dest: /etc/bash.bashrc
+        line: alias nuget="mono {{ nuget_linux_path_to_install }}/nuget.exe"
+    # Smoke test
+    - shell: nuget help | grep 'NuGet Version'
+      changed_when: false
