@@ -1,8 +1,11 @@
 # Ansible Role: Install Nuget
 
-[![License][license-image]][license-url] [![Ansible Galaxy][ansible-galaxy-image]][ansible-galaxy-url] ![Ansible Role downloads](https://img.shields.io/ansible/role/d/54365)
+[![License][license-image]][license-url]
 
-Install [nuGet](https://www.nuget.org/) for Linux and Windows.
+<!-- TODO -->
+<!-- [![Ansible Galaxy][ansible-galaxy-image]][ansible-galaxy-url] ![Ansible Role downloads](https://img.shields.io/ansible/role/d/54365) -->
+
+Install [NuGet](https://www.nuget.org/) for Linux and Windows.
 
 ## Work on
 
@@ -51,9 +54,7 @@ Download and install [Windows Management Framework 5.1](https://www.microsoft.co
 
 Over `ansible-galaxy`:
 
-```bash
-ansible-galaxy install don_rumata.ansible_role_install_nuget
-```
+`TODO`.
 
 Over `bash+git`:
 
@@ -115,9 +116,11 @@ Apache License, Version 2.0
 ## TODO
 
 - Add repo mono project.
+- Install over `ansible galaxy`.
 
 [license-image]: https://img.shields.io/github/license/don-rumata/ansible-role-install-nuget.svg
 [license-url]: https://opensource.org/licenses/Apache-2.0
 
-[ansible-galaxy-image]: https://img.shields.io/badge/ansible_galaxy-don__rumata.ansible__role__install__nuget-blue.svg
-[ansible-galaxy-url]: https://galaxy.ansible.com/don_rumata/ansible_role_install_nuget
+<!-- TODO -->
+<!-- [ansible-galaxy-image]: https://img.shields.io/badge/ansible_galaxy-don__rumata.ansible__role__install__nuget-blue.svg
+[ansible-galaxy-url]: https://galaxy.ansible.com/don_rumata/ansible_role_install_nuget -->
