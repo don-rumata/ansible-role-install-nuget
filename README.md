@@ -1,9 +1,8 @@
 # Ansible Role: Install Nuget
 
 [![License][license-image]][license-url]
-
-<!-- TODO -->
-<!-- [![Ansible Galaxy][ansible-galaxy-image]][ansible-galaxy-url] ![Ansible Role downloads](https://img.shields.io/ansible/role/d/54365) -->
+[![Ansible Galaxy][ansible-galaxy-image]][ansible-galaxy-url]
+![Ansible Role downloads](https://img.shields.io/ansible/role/d/don-rumata/install-nuget.svg)
 
 Install [NuGet](https://www.nuget.org/) for Linux and Windows.
 
@@ -121,6 +120,5 @@ Apache License, Version 2.0
 [license-image]: https://img.shields.io/github/license/don-rumata/ansible-role-install-nuget.svg
 [license-url]: https://opensource.org/licenses/Apache-2.0
 
-<!-- TODO -->
-<!-- [ansible-galaxy-image]: https://img.shields.io/badge/ansible_galaxy-don__rumata.ansible__role__install__nuget-blue.svg
-[ansible-galaxy-url]: https://galaxy.ansible.com/don_rumata/ansible_role_install_nuget -->
+[ansible-galaxy-image]: https://img.shields.io/badge/ansible_galaxy-don__rumata.ansible__role__install__nuget-blue.svg
+[ansible-galaxy-url]: https://galaxy.ansible.com/don_rumata/ansible_role_install_nuget

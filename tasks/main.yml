@@ -1,7 +1,7 @@
 ---
 - name: Install NuGet 4 Windows
   when: ansible_os_family == 'Windows'
-  become: yes
+  become: true
   become_method: runas
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
   block:
@@ -15,7 +15,7 @@
     - win_get_url:
         url: "{{ nuget_download_url }}"
         dest: "{{ nuget_win_path_to_install }}\\nuget.exe"
-        # remote_src: yes
+        # remote_src: true
     # # https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh831755(v=ws.11)#create-firewall-rules
     # - win_shell: netsh advfirewall firewall add rule name="Allow NuGet" dir=in action=allow program="{{ ansible_env.ProgramFiles }}\nuget\nuget.exe"
     #   args:
@@ -28,7 +28,7 @@
         program: "{{ nuget_win_path_to_install }}\\nuget.exe"
         group: application
         state: present
-        enabled: yes
+        enabled: true
 
 
 
@@ -38,7 +38,7 @@
   when:
     - ansible_os_family == 'Debian'
     - ansible_pkg_mgr == 'apt'
-  become: yes
+  become: true
   block:
     # Delete old version
     - package:
@@ -63,9 +63,13 @@
         url: "{{ nuget_download_url }}"
         dest: "{{ nuget_linux_path_to_install }}/nuget.exe"
         mode: '755'
-    - lineinfile:
-        dest: /etc/bash.bashrc
-        line: alias nuget="mono {{ nuget_linux_path_to_install }}/nuget.exe"
+    - copy:
+        dest: /etc/profile.d/nuget.sh
+        content: |
+          alias nuget="mono {{ nuget_linux_path_to_install }}/nuget.exe"
+        mode: '644'
     # Smoke test
-    - shell: nuget help | grep 'NuGet Version'
+    - shell: |
+        . /etc/profile.d/nuget.sh
+        LC_ALL=C nuget help | grep 'NuGet Version'
       changed_when: false
